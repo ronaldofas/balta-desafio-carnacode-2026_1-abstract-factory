@@ -179,6 +179,34 @@ namespace DesignPatternChallenge
             // - Como adicionar um novo gateway sem modificar PaymentService?
             // - Como garantir que todos os componentes de um gateway sejam compatíveis entre si?
             // - Como evitar criar componentes de gateways diferentes acidentalmente?
+            //
+            // Respostas (utilizando o padrão Abstract Factory):
+            //
+            // 1. Como adicionar um novo gateway sem modificar PaymentService?
+            //    R: Criando uma interface IPaymentGatewayFactory com métodos como
+            //    CreateValidator(), CreateProcessor() e CreateLogger(). Cada novo gateway
+            //    implementa essa interface em uma classe concreta (ex: PagSeguroFactory,
+            //    StripeFactory). O PaymentService recebe a factory via injeção de dependência
+            //    (no construtor) e utiliza apenas a interface, sem conhecer as implementações
+            //    concretas. Assim, para adicionar um novo gateway, basta criar uma nova factory
+            //    concreta — sem modificar nenhuma linha do PaymentService (princípio Open/Closed).
+            //
+            // 2. Como garantir que todos os componentes de um gateway sejam compatíveis entre si?
+            //    R: A Abstract Factory resolve exatamente esse problema. Como cada factory concreta
+            //    (ex: MercadoPagoFactory) é responsável por criar TODOS os componentes do seu
+            //    gateway (Validator, Processor e Logger), ela garante que os objetos retornados
+            //    são da mesma "família". É impossível, por exemplo, que a MercadoPagoFactory
+            //    crie um StripeValidator por acidente, pois cada factory encapsula a criação de
+            //    seus próprios componentes coesos.
+            //
+            // 3. Como evitar criar componentes de gateways diferentes acidentalmente?
+            //    R: Sem o padrão, o desenvolvedor instancia manualmente cada componente (new
+            //    PagSeguroValidator(), new StripeProcessor()...), o que abre margem para misturar
+            //    componentes de gateways diferentes. Com a Abstract Factory, o código cliente
+            //    nunca usa "new" diretamente para criar esses componentes — ele chama os métodos
+            //    da factory (factory.CreateValidator(), factory.CreateProcessor(), etc.), e a
+            //    factory garante que todos pertencem ao mesmo gateway. Isso elimina o risco de
+            //    combinações incorretas e centraliza a criação dos objetos em um único ponto.
         }
     }
 }
