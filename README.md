@@ -156,4 +156,4 @@ O desafio **CarnaCode 2026** consiste em implementar todos os 23 padrões de pro
 Minha principal fonte de conhecimento durante o desafio foi o eBook gratuito [Fundamentos dos Design Patterns](https://lp.balta.io/ebook-fundamentos-design-patterns).
 
 ### Veja meu progresso no desafio
-[Minha solução](https://github.com/ronaldofas/balta-desafio-carnacode-2026_1-abstract-factory)
+[Repositório Central CarnaCode2026](https://github.com/ronaldofas/balta-desafio-carnacode-2026-central)
